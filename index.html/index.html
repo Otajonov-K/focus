@@ -131,8 +131,8 @@
       position: relative;
       width: 100%;
       max-width: 440px;
-      min-height: 360px;
-      background: linear-gradient(145deg, rgba(35, 14, 54, 0.9), rgba(16, 6, 28, 0.94));
+      min-height: 350px;
+      background: linear-gradient(145deg, rgba(35, 14, 54, 0.92), rgba(16, 6, 28, 0.96));
       border: 1px solid rgba(255, 130, 185, 0.35);
       border-radius: 28px;
       padding: 34px 26px 30px;
@@ -176,7 +176,7 @@
     .btn-arena {
       position: relative;
       width: 100%;
-      height: 130px;
+      min-height: 125px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -203,20 +203,20 @@
       box-shadow: 0 14px 30px rgba(236, 72, 153, 0.65);
     }
     .no-btn {
-      position: absolute;
-      top: 66px;
-      padding: 12px 20px;
-      width: 270px;
+      padding: 12px 22px;
+      min-width: 260px;
       white-space: nowrap;
       border-radius: 16px;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #fda4af;
-      background: rgba(244, 63, 94, 0.14);
-      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: #ffd1dc;
+      background: rgba(244, 63, 94, 0.25);
+      border: 1px solid rgba(255, 90, 120, 0.6);
+      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.3);
+      backdrop-filter: blur(8px);
       cursor: pointer;
-      transition: left 0.14s ease-out, top 0.14s ease-out;
-      z-index: 3;
+      transition: left 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.18s ease;
+      z-index: 9999;
     }
     .date-highlight {
       color: #ff85b3;
@@ -252,7 +252,7 @@
       </p>
       <div class="btn-arena" id="arena1">
         <button class="yes-btn" onclick="goToDatePanel()">Yaxshi, blokdan ochaman 🔓</button>
-        <button class="no-btn" id="noBtn1" onmouseover="runAway('noBtn1', 'card1', 1)" ontouchstart="runAway('noBtn1', 'card1', 1)" onclick="runAway('noBtn1', 'card1', 1)">Yana ozgina turib tur 😏</button>
+        <button class="no-btn" id="noBtn1" onmouseover="runAwayFull('noBtn1', 1)" ontouchstart="runAwayFull('noBtn1', 1)" onclick="runAwayFull('noBtn1', 1)">Blokdan ochishga rozimasman 😏</button>
       </div>
     </div>
   </div>
@@ -268,7 +268,7 @@
       </p>
       <div class="btn-arena" id="arena2">
         <button class="yes-btn" onclick="finishAll()">Qabul qildim, ko‘rishamiz ✨</button>
-        <button class="no-btn" id="noBtn2" onmouseover="runAway('noBtn2', 'card2', 2)" ontouchstart="runAway('noBtn2', 'card2', 2)" onclick="runAway('noBtn2', 'card2', 2)">O‘ylab ko‘raman 😌</button>
+        <button class="no-btn" id="noBtn2" onmouseover="runAwayFull('noBtn2', 2)" ontouchstart="runAwayFull('noBtn2', 2)" onclick="runAwayFull('noBtn2', 2)">Rozimasman, bormayman 😌</button>
       </div>
     </div>
   </div>
@@ -614,41 +614,57 @@
       else if (s === 2) setNameStage();
       else if (s === 3) setFlowerStage();
     }
-// Qochuvchi "Yo'q" yozuvlari
-    // Qochuvchi "Yo'q" yozuvlari
-    const romanticNoTexts1 = [
-      "Bu tugma ishlamaydi 😉",
-      "Fokus qoidasi shunaqa ✨",
-      "Baribir tutolmaysan 😏",
-      "Boshqa variant qolmadi",
-      "Tepadagini bosaqol 🔓"
+
+    // Butun ekran bo'ylab qochib yuruvchi yozuvlar
+    const noTexts1 = [
+      "Blokdan ochishga rozimasman 😏",
+      "Baribir tutolmaysan 😂",
+      "Ekran bo‘ylab qochaman 🏃‍♂️✨",
+      "Rozimasman degani o‘tmaydi 😉",
+      "Ovora bo‘lma, ochasan baribir 🔓"
     ];
-    const romanticNoTexts2 = [
-      "Rad javobi o‘tmaydi 😌",
+    const noTexts2 = [
+      "Rozimasman, bormayman 😌",
       "2-noyabr band qilindi 📌",
-      "Kofe sovib qoladi ☕",
-      "Bu tugma faqat qochadi 😉",
-      "Ko‘rishamiz ni bosaqol ✨"
+      "Kofe sovib qoladi, bosaqol ☕",
+      "Butun ekranni aylanib chiqaman 😜",
+      "Faqat 'Qabul qildim' ishlaydi ✨"
     ];
     let dodgeCount = 0;
 
-    function runAway(btnId, cardId, panelNum) {
+    function runAwayFull(btnId, panelNum) {
       const btn = document.getElementById(btnId);
-      const card = document.getElementById(cardId);
 
-      const maxX = Math.max((card.clientWidth - btn.offsetWidth) / 2 - 10, 55);
-      const randomX = (Math.random() - 0.5) * 2 * maxX;
-      const randomY = Math.floor(Math.random() * 95) - 15;
-
-      btn.style.left = `calc(50% - ${btn.offsetWidth / 2}px + ${randomX}px)`;
-      btn.style.top = `${56 + randomY}px`;
+      // Tugma kartochka ichidan chiqib, butun ekran bo'ylab erkin yurishi uchun body'ga o'tkazamiz
+      if (btn.parentElement !== document.body) {
+        const rect = btn.getBoundingClientRect();
+        btn.style.position = 'fixed';
+        btn.style.left = rect.left + 'px';
+        btn.style.top = rect.top + 'px';
+        document.body.appendChild(btn);
+      }
 
       dodgeCount++;
-      const list = panelNum === 1 ? romanticNoTexts1 : romanticNoTexts2;
+      const list = panelNum === 1 ? noTexts1 : noTexts2;
       btn.innerText = list[dodgeCount % list.length];
+
+      const pad = 20;
+      const maxX = Math.max(window.innerWidth - btn.offsetWidth - pad, pad);
+      const maxY = Math.max(window.innerHeight - btn.offsetHeight - pad, pad);
+
+      const randomX = Math.floor(Math.random() * (maxX - pad)) + pad;
+      const randomY = Math.floor(Math.random() * (maxY - pad)) + pad;
+      const randomRot = (Math.random() - 0.5) * 14;
+
+      btn.style.left = randomX + 'px';
+      btn.style.top = randomY + 'px';
+      btn.style.transform = `rotate(${randomRot}deg)`;
     }
 
     function goToDatePanel() {
+      const btn1 = document.getElementById('noBtn1');
+      if (btn1) btn1.style.display = 'none';
+
       document.getElementById('panelBlock').classList.remove('active');
       setTimeout(() => {
         document.getElementById('panelDate').classList.add('active');
@@ -656,6 +672,9 @@
     }
 
     function finishAll() {
+      const btn2 = document.getElementById('noBtn2');
+      if (btn2) btn2.style.display = 'none';
+
       document.getElementById('panelDate').classList.remove('active');
       setTimeout(() => {
         document.getElementById('panelFinal').classList.add('active');
