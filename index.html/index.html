@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Shoxista uchun ✨</title>
+  <title>Shoxista • 2-Qism ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -19,12 +19,13 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: radial-gradient(ellipse at 50% 45%, #1c0b2b 0%, #0b0314 55%, #030106 100%);
+      background: radial-gradient(ellipse at 50% 45%, #1a092e 0%, #090212 60%, #020005 100%);
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
+      touch-action: none;
     }
     canvas {
       position: absolute;
@@ -32,84 +33,98 @@
       width: 100%;
       height: 100%;
       z-index: 1;
+      cursor: pointer;
     }
 
-    /* Pastki boshqaruv tugmalari */
-    .bottom-ui {
+    /* 1-BOSQICH: INTERAKTIV EKRAN YOZUVLARI */
+    .intro-hud {
       position: absolute;
-      bottom: 42px;
+      inset: 0;
       z-index: 10;
+      pointer-events: none;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 45px 22px 50px;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .bottom-ui.hidden {
+    .intro-hud.hidden {
       opacity: 0;
-      pointer-events: none;
-      transform: translateY(15px) scale(0.92);
+      transform: scale(0.95);
     }
-    .magic-btn {
-      padding: 13px 36px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #ffe4ef;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 160, 200, 0.45);
-      border-radius: 40px;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 25px rgba(255, 60, 140, 0.35), inset 0 0 12px rgba(255, 180, 210, 0.15);
-      transition: all 0.3s ease;
-    }
-    .magic-btn:hover {
-      background: rgba(255, 60, 140, 0.25);
-      border-color: #ff85b3;
-      box-shadow: 0 0 35px rgba(255, 60, 140, 0.7);
-      transform: translateY(-2px);
-    }
-    .pulse-btn {
-      animation: softPulse 2s infinite;
-    }
-    @keyframes softPulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 60, 140, 0.4); transform: scale(1); }
-      50% { box-shadow: 0 0 35px rgba(255, 60, 140, 0.85); transform: scale(1.05); }
-    }
-
-    /* Gul tagidagi "sen uchun" va "Shoxista" bloki */
-    .flower-titles {
-      position: absolute;
-      bottom: 105px;
-      z-index: 6;
+    .top-box {
       text-align: center;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: all 1.4s ease;
+      max-width: 420px;
+      background: rgba(20, 8, 36, 0.65);
+      border: 1px solid rgba(255, 140, 195, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 18px 22px;
+      border-radius: 22px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     }
-    .flower-titles.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .top-box .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #ff9ec4;
+      margin-bottom: 6px;
     }
-    .flower-titles .sub {
-      font-size: 0.85rem;
-      letter-spacing: 5px;
-      text-transform: lowercase;
-      color: rgba(255, 220, 235, 0.85);
-      margin-bottom: 2px;
-    }
-    .flower-titles .main-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.8rem, 7vw, 4.2rem);
-      color: #ffd6e7;
-      text-shadow: 0 0 18px rgba(255, 65, 135, 0.85), 0 0 35px rgba(255, 20, 100, 0.45);
-      line-height: 1.1;
+    .top-box h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #fff;
     }
 
-    /* Panellar (Modal Kartochkalar) */
-    .overlay-panel {
+    .bottom-meter {
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+      background: rgba(20, 8, 36, 0.7);
+      border: 1px solid rgba(255, 140, 195, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      border-radius: 20px;
+    }
+    .meter-text {
+      font-size: 0.88rem;
+      color: #f5d0fe;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 120, 180, 0.25);
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ec4899, #a855f7, #ff85b3);
+      box-shadow: 0 0 15px #ec4899;
+      transition: width 0.15s ease;
+    }
+    .hint-pulse {
+      font-size: 0.8rem;
+      color: #fda4af;
+      margin-top: 8px;
+      animation: fadePulse 1.6s infinite;
+    }
+    @keyframes fadePulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* ALOHIDA PANELLAR (SAVOLLAR VA CHIPTA) */
+    .panel-wrap {
       position: fixed;
       inset: 0;
       z-index: 30;
@@ -117,184 +132,272 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: rgba(4, 1, 10, 0.65);
+      background: rgba(5, 1, 12, 0.65);
       backdrop-filter: blur(8px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
+      transform: translateY(15px) scale(0.96);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .overlay-panel.active {
+    .panel-wrap.active {
       opacity: 1;
       pointer-events: auto;
+      transform: translateY(0) scale(1);
     }
-    .glass-card {
-      position: relative;
+    .card {
       width: 100%;
-      max-width: 440px;
-      min-height: 350px;
-      background: linear-gradient(145deg, rgba(35, 14, 54, 0.92), rgba(16, 6, 28, 0.96));
-      border: 1px solid rgba(255, 130, 185, 0.35);
+      max-width: 430px;
+      background: linear-gradient(150deg, rgba(38, 15, 58, 0.94), rgba(15, 5, 26, 0.97));
+      border: 1px solid rgba(255, 135, 190, 0.38);
       border-radius: 28px;
-      padding: 34px 26px 30px;
+      padding: 30px 24px;
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(255, 45, 125, 0.22);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(236, 72, 153, 0.2);
     }
-    .badge {
+    .step-badge {
       display: inline-block;
-      padding: 5px 15px;
-      font-size: 0.74rem;
+      padding: 5px 14px;
+      font-size: 0.73rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #ff9ec4;
-      background: rgba(255, 75, 145, 0.15);
+      background: rgba(255, 75, 145, 0.16);
       border: 1px solid rgba(255, 110, 170, 0.35);
       border-radius: 20px;
-      margin-bottom: 14px;
-    }
-    .card-emoji {
-      font-size: 2.7rem;
       margin-bottom: 12px;
-      filter: drop-shadow(0 0 12px rgba(255, 100, 160, 0.5));
     }
-    .glass-card h2 {
-      font-size: 1.35rem;
+    .emoji-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .card h2 {
+      font-size: 1.3rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.35;
     }
-    .glass-card p {
-      font-size: 0.95rem;
-      color: #e2d1f0;
-      line-height: 1.6;
-      margin-bottom: 24px;
+    .card p.desc {
+      font-size: 0.9rem;
+      color: #d8c4e8;
+      margin-bottom: 20px;
+      line-height: 1.5;
     }
-    .btn-arena {
-      position: relative;
-      width: 100%;
-      min-height: 125px;
+    .options-list {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 14px;
+      gap: 11px;
     }
-    .yes-btn {
-      padding: 14px 24px;
-      width: 270px;
-      white-space: nowrap;
-      border: none;
+    .opt-btn {
+      width: 100%;
+      padding: 14px 18px;
       border-radius: 16px;
-      font-size: 0.96rem;
+      border: 1px solid rgba(255, 150, 200, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 0.93rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.22s ease;
+    }
+    .opt-btn:hover, .opt-btn:active {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.35), rgba(139, 92, 246, 0.35));
+      border-color: #ff85b3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    /* YAKUNIY VIP TAKLIFNOMA DIZAYNI */
+    .ticket-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 160, 205, 0.5);
+      border-radius: 20px;
+      padding: 18px 16px;
+      margin: 16px 0 20px;
+      text-align: left;
+    }
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+    }
+    .ticket-row:last-child {
+      border-bottom: none;
+    }
+    .ticket-row span.label {
+      color: #cbd5e1;
+    }
+    .ticket-row span.val {
+      color: #ff9ec4;
+      font-weight: 700;
+      text-align: right;
+    }
+    .countdown-box {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .time-unit {
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      border-radius: 12px;
+      padding: 8px 12px;
+      min-width: 65px;
+    }
+    .time-unit .num {
+      font-size: 1.2rem;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(135deg, #ec4899, #8b5cf6);
-      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.45);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 2;
     }
-    .yes-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 14px 30px rgba(236, 72, 153, 0.65);
-    }
-    .no-btn {
-      padding: 12px 22px;
-      min-width: 260px;
-      white-space: nowrap;
-      border-radius: 16px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #ffd1dc;
-      background: rgba(244, 63, 94, 0.25);
-      border: 1px solid rgba(255, 90, 120, 0.6);
-      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.3);
-      backdrop-filter: blur(8px);
-      cursor: pointer;
-      transition: left 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.18s ease;
-      z-index: 9999;
-    }
-    .date-highlight {
-      color: #ff85b3;
-      font-weight: 700;
-      text-decoration: underline;
-      text-underline-offset: 4px;
+    .time-unit .lbl {
+      font-size: 0.68rem;
+      color: #f9a8d4;
+      text-transform: uppercase;
     }
   </style>
 </head>
 <body>
 
-  <canvas id="scene"></canvas>
+  <canvas id="starCanvas"></canvas>
 
-  <!-- 4-bosqichda atirgul ostida chiqadigan yozuvlar -->
-  <div class="flower-titles" id="flowerTitles">
-    <div class="sub">sen uchun</div>
-    <div class="main-name">Shoxista</div>
+  <!-- 1-BOSQICH: BARMOQ BILAN BOSHQARILADIGAN YULDUZLAR EKRANI -->
+  <div class="intro-hud" id="introHud">
+    <div class="top-box">
+      <span class="tag">2-Qism • Maxfiy Sahifa ✨</span>
+      <h1>Shoxista, linkka yana bir marta kirib ko‘rishingni bilgandim 😉</h1>
+    </div>
+
+    <div class="bottom-meter">
+      <div class="meter-text">
+        <span>Yangi fokus quvvati:</span>
+        <span id="percentTxt">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="hint-pulse">👆 Ekranni barmog‘ing bilan silab yulduzlarni aylantir</div>
+    </div>
   </div>
 
-  <!-- Boshlang'ich tugma -->
-  <div class="bottom-ui" id="bottomUi">
-    <button class="magic-btn" id="actionBtn" onclick="handleMainAction()">Bosib ko‘r ✨</button>
-  </div>
-
-  <!-- 1-PANEL: BLOKDAN OCHISH -->
-  <div class="overlay-panel" id="panelBlock">
-    <div class="glass-card" id="card1">
-      <span class="badge">1 : 1 Hisob ✨</span>
-      <div class="card-emoji">🎩🔓</div>
-      <h2>Fokusingni ko‘rib bo‘ldim, zo‘r ekan — endi blokdan ochaver 😉</h2>
-      <p>
-        Yo‘q bo‘lib qolish bo‘yicha mahoratingga gap yo‘q. Lekin mening javob fokusim ham chakki chiqmadi, to‘g‘rimi? Endi bemalol blokdan ochib qo‘ysang ham bo‘ladi.
-      </p>
-      <div class="btn-arena" id="arena1">
-        <button class="yes-btn" onclick="goToDatePanel()">Yaxshi, blokdan ochaman 🔓</button>
-        <button class="no-btn" id="noBtn1" onmouseover="runAwayFull('noBtn1', 1)" ontouchstart="runAwayFull('noBtn1', 1)" onclick="runAwayFull('noBtn1', 1)">Blokdan ochishga rozimasman 😏</button>
+  <!-- 1-SAVOL PANELI -->
+  <div class="panel-wrap" id="panel1">
+    <div class="card">
+      <span class="step-badge">1-Savol • 1 / 3</span>
+      <div class="emoji-icon">⌚😉</div>
+      <h2>2-noyabrga tayyorgarlikni boshlaymiz!</h2>
+      <p class="desc">Birinchi bo‘lib hal qilib olaylik: uchrashuvga kim kechikib keladi?</p>
+      <div class="options-list">
+        <button class="opt-btn" onclick="selectAnswer(1, 'Shoxista (5 daqiqa mumkin) 💁‍♀️')">
+          <span>Men kechikaman (qizlarga mumkin)</span> <span>💁‍♀️</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(1, 'Hech kim, vaqtida! 🤝')">
+          <span>Vaqtida boraman, ko‘rasan</span> <span>⏱️</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(1, 'Kechikkan kofe olib beradi ☕')">
+          <span>Kim kechiksa — shirinlik undan!</span> <span>🍰</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- 2-PANEL: 2-NOYABR KOFEGA TAKLIF -->
-  <div class="overlay-panel" id="panelDate">
-    <div class="glass-card" id="card2">
-      <span class="badge">Maxsus taklif ☕</span>
-      <div class="card-emoji">☕🌹</div>
-      <h2><span class="date-highlight">2-noyabr</span> kuni bir finjon kofega taklif qilaman ✨</h2>
-      <p>
-        Yaxshi boshlangan suhbat chala qolmasligi kerak. <strong>2-noyabr</strong> kuni sokin joyda bir finjon kofe ustida ko‘rishib, yaqindan tanishamizmi, Shoxista?
-      </p>
-      <div class="btn-arena" id="arena2">
-        <button class="yes-btn" onclick="finishAll()">Qabul qildim, ko‘rishamiz ✨</button>
-        <button class="no-btn" id="noBtn2" onmouseover="runAwayFull('noBtn2', 2)" ontouchstart="runAwayFull('noBtn2', 2)" onclick="runAwayFull('noBtn2', 2)">Rozimasman, bormayman 😌</button>
+  <!-- 2-SAVOL PANELI -->
+  <div class="panel-wrap" id="panel2">
+    <div class="card">
+      <span class="step-badge">2-Savol • 2 / 3</span>
+      <div class="emoji-icon">☕🍰</div>
+      <h2>Qanday kofe buyurtma qilamiz?</h2>
+      <p class="desc">Oldindan bilib qo‘yay, senga ko‘proq qaysi biri yoqadi?</p>
+      <div class="options-list">
+        <button class="opt-btn" onclick="selectAnswer(2, 'Kapuchino va shirinlik ☕🍰')">
+          <span>Issiq Kapuchino va chizkeyk</span> <span>☕</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(2, 'Latte va shokolad 🥛🍫')">
+          <span>Mayin Latte bilan shokolad</span> <span>🍫</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(2, 'Joyida birga tanlaymiz ✨')">
+          <span>Ko‘rishganda birga tanlaymiz</span> <span>✨</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- YAKUNIY PANEL -->
-  <div class="overlay-panel" id="panelFinal">
-    <div class="glass-card" style="min-height: 280px; justify-content: center;">
-      <div class="card-emoji" style="font-size: 3.2rem;">☕✨🌹</div>
-      <h2>Kelishdik, Shoxista!</h2>
-      <p style="margin-bottom: 10px;">
-        <strong>2-noyabr</strong> kuni bir finjon kofe ustida ko‘rishamiz.<br><br>
-        Ungacha blokni ochib, Telegramdan belgi berib qo‘ysang bas — qolganini o‘zim hal qilaman 😉
-      </p>
+  <!-- 3-SAVOL PANELI -->
+  <div class="panel-wrap" id="panel3">
+    <div class="card">
+      <span class="step-badge">3-Savol • 3 / 3</span>
+      <div class="emoji-icon">🎩✨</div>
+      <h2>Uchrashuvning asosiy qoidasi?</h2>
+      <p class="desc">Suhbatimiz chiroyli o‘tishi uchun bitta qoida tanla:</p>
+      <div class="options-list">
+        <button class="opt-btn" onclick="selectAnswer(3, 'Telefonlarsiz jonli suhbat 📵')">
+          <span>Telefonlarni chetga qo‘yib gaplashamiz</span> <span>✨</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(3, 'Fokus ko‘rsatib qochmaslik 😉')">
+          <span>Yana «fokus» ko‘rsatib yo‘q bo‘lib qolmaslik</span> <span>🎩</span>
+        </button>
+        <button class="opt-btn" onclick="selectAnswer(3, 'Faqat yaxshi kayfiyat 🌟')">
+          <span>Ikkalasi ham + a’lo kayfiyat!</span> <span>🤝</span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <audio id="bgMusic" src="audio.mp3" preload="auto"></audio>
+  <!-- YAKUNIY PANEL: VIP TAKLIFNOMA -->
+  <div class="panel-wrap" id="panel4">
+    <div class="card">
+      <span class="step-badge">Rasmiy Tasdiq • VIP 🎟️</span>
+      <div class="emoji-icon">🌹☕✨</div>
+      <h2>Shoxista uchun Maxsus Taklifnoma</h2>
+      <p class="desc" style="margin-bottom: 12px;">2-noyabr uchrashuvigacha qolgan vaqt:</p>
+
+      <div class="countdown-box">
+        <div class="time-unit"><div class="num" id="cdHours">00</div><div class="lbl">Soat</div></div>
+        <div class="time-unit"><div class="num" id="cdMins">00</div><div class="lbl">Daqiqa</div></div>
+        <div class="time-unit"><div class="num" id="cdSecs">00</div><div class="lbl">Soniya</div></div>
+      </div>
+
+      <div class="ticket-box">
+        <div class="ticket-row">
+          <span class="label">Mehmon:</span>
+          <span class="val">Shoxista ✨</span>
+        </div>
+        <div class="ticket-row">
+          <span class="label">Sana:</span>
+          <span class="val">2-Noyabr 📅</span>
+        </div>
+        <div class="ticket-row">
+          <span class="label">Vaqt masalasi:</span>
+          <span class="val" id="res1">-</span>
+        </div>
+        <div class="ticket-row">
+          <span class="label">Menyu:</span>
+          <span class="val" id="res2">-</span>
+        </div>
+        <div class="ticket-row">
+          <span class="label">Asosiy qoida:</span>
+          <span class="val" id="res3">-</span>
+        </div>
+      </div>
+
+      <p style="font-size: 0.85rem; color: #fbcfe8; line-height: 1.5;">
+        Taklifnoma tayyor! Endi ushbu ekranni skrinshot qilib, menga Telegramdan yuborib qo‘y 😉👇
+      </p>
+    </div>
+  </div>
 
   <script>
-    const GIRL_NAME = "Shoxista";
-    const canvas = document.getElementById('scene');
+    const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
-    const bottomUi = document.getElementById('bottomUi');
-    const actionBtn = document.getElementById('actionBtn');
-    const flowerTitles = document.getElementById('flowerTitles');
-    const audio = document.getElementById('bgMusic');
+    const introHud = document.getElementById('introHud');
+    const progressFill = document.getElementById('progressFill');
+    const percentTxt = document.getElementById('percentTxt');
 
     let width, height, dpr;
     function resize() {
@@ -308,448 +411,195 @@
     window.addEventListener('resize', resize);
     resize();
 
-    const spriteCache = {};
-    function getGlowSprite(colorHex) {
-      if (spriteCache[colorHex]) return spriteCache[colorHex];
-      const size = 24;
-      const off = document.createElement('canvas');
-      off.width = size;
-      off.height = size;
-      const octx = off.getContext('2d');
-      const grad = octx.createRadialGradient(size/2, size/2, 0.5, size/2, size/2, size/2);
-      grad.addColorStop(0, '#ffffff');
-      grad.addColorStop(0.28, colorHex);
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      octx.fillStyle = grad;
-      octx.fillRect(0, 0, size, size);
-      spriteCache[colorHex] = off;
-      return off;
+    // Barmoq / Sichqoncha harakatini kuzatish
+    const pointer = { x: width / 2, y: height / 2, active: false };
+    let energy = 0;
+    let gameUnlocked = false;
+
+    function addEnergy(amount) {
+      if (gameUnlocked) return;
+      energy = Math.min(100, energy + amount);
+      const rounded = Math.floor(energy);
+      progressFill.style.width = rounded + '%';
+      percentTxt.innerText = rounded + '%';
+
+      if (energy >= 100 && !gameUnlocked) {
+        gameUnlocked = true;
+        setTimeout(() => {
+          introHud.classList.add('hidden');
+          document.getElementById('panel1').classList.add('active');
+        }, 400);
+      }
     }
 
-    const bgStars = Array.from({ length: 160 }, () => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: Math.random() * 1.3 + 0.3,
-      phase: Math.random() * Math.PI * 2,
-      speed: Math.random() * 0.025 + 0.008
-    }));
+    window.addEventListener('mousemove', (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.active = true;
+      addEnergy(0.75);
+    });
 
-    const COUNT = 4200;
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        pointer.x = e.touches[0].clientX;
+        pointer.y = e.touches[0].clientY;
+        pointer.active = true;
+        addEnergy(3);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        pointer.x = e.touches[0].clientX;
+        pointer.y = e.touches[0].clientY;
+        pointer.active = true;
+        addEnergy(1.3);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      pointer.active = false;
+    });
+
+    // Zarrachalar tizimi (Barmoqqa ergashuvchi galaktika)
+    const PARTICLE_COUNT = 1600;
     const particles = [];
-    let stage = 0;
-    let sequenceStarted = false;
-    let readyForPanels = false;
-    let time = 0;
+    const colors = ['#ff2a85', '#ff85b3', '#c084fc', '#ffd166', '#ffffff'];
 
-    class Particle {
-      constructor() {
-        this.x = width / 2 + (Math.random() - 0.5) * width;
-        this.y = height / 2 + (Math.random() - 0.5) * height;
-        this.tx = this.x;
-        this.ty = this.y;
+    class StarParticle {
+      constructor(i) {
+        this.angle = (i / PARTICLE_COUNT) * Math.PI * 20;
+        this.baseRadius = Math.pow(Math.random(), 0.8) * Math.min(width, height) * 0.44 + 15;
+        this.x = width / 2 + Math.cos(this.angle) * this.baseRadius;
+        this.y = height / 2 + Math.sin(this.angle) * this.baseRadius;
         this.vx = 0;
         this.vy = 0;
-        this.size = Math.random() * 4.5 + 3.2;
-        this.color = '#ffd6a5';
-        this.angle = 0;
-        this.radius = 0;
-        this.orbitSpeed = 0;
+        this.size = Math.random() * 2.2 + 0.8;
+        this.color = colors[i % colors.length];
+        this.speed = (Math.random() * 0.008 + 0.004) * (i % 2 === 0 ? 1 : -1);
       }
 
       update() {
-        if (stage === 1) {
-          this.angle += this.orbitSpeed;
-          const cx = width / 2;
-          const cy = height / 2;
-          const tilt = 0.42;
-          const cosA = Math.cos(this.angle);
-          const sinA = Math.sin(this.angle);
-          const rx = this.radius * cosA;
-          const ry = this.radius * sinA * tilt;
-          const rot = -0.18;
-          this.tx = cx + (rx * Math.cos(rot) - ry * Math.sin(rot));
-          this.ty = cy + (rx * Math.sin(rot) + ry * Math.cos(rot));
+        this.angle += this.speed;
+
+        // Tinch holatda markaz atrofida suzadi
+        let targetX = width / 2 + Math.cos(this.angle) * this.baseRadius;
+        let targetY = height / 2 + Math.sin(this.angle) * (this.baseRadius * 0.65);
+
+        // Barmoq tekkizilganda barmoq atrofida girdob hosil qiladi
+        if (pointer.active && !gameUnlocked) {
+          const dx = pointer.x - this.x;
+          const dy = pointer.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy) + 1;
+
+          if (dist < 260) {
+            const pull = (260 - dist) / 260;
+            // Spiral girdob kuchi
+            this.vx += (dx / dist) * pull * 1.4 - (dy / dist) * pull * 1.8;
+            this.vy += (dy / dist) * pull * 1.4 + (dx / dist) * pull * 1.8;
+          }
         }
 
-        const ease = stage === 1 ? 0.12 : 0.065;
-        this.x += (this.tx - this.x) * ease + this.vx;
-        this.y += (this.ty - this.y) * ease + this.vy;
-        this.vx *= 0.91;
-        this.vy *= 0.91;
+        this.vx += (targetX - this.x) * 0.025;
+        this.vy += (targetY - this.y) * 0.025;
 
-        this.x += (Math.random() - 0.5) * 0.45;
-        this.y += (Math.random() - 0.5) * 0.45;
+        this.vx *= 0.88;
+        this.vy *= 0.88;
+
+        this.x += this.vx;
+        this.y += this.vy;
       }
 
       draw() {
-        const sprite = getGlowSprite(this.color);
-        ctx.drawImage(sprite, this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
-    function setEnvelopeStage() {
-      const cx = width / 2;
-      const cy = height / 2 - 15;
-      const w = Math.min(width * 0.78, 360);
-      const h = w * 0.62;
-
-      for (let i = 0; i < COUNT; i++) {
-        const p = particles[i];
-        let x, y, col = '#ffd89b', sz = Math.random() * 4.5 + 3;
-
-        if (i < COUNT * 0.32) {
-          const perim = 2 * (w + h);
-          const pos = (i / (COUNT * 0.32)) * perim;
-          if (pos < w) { x = cx - w/2 + pos; y = cy - h/2; }
-          else if (pos < w + h) { x = cx + w/2; y = cy - h/2 + (pos - w); }
-          else if (pos < 2*w + h) { x = cx + w/2 - (pos - (w + h)); y = cy + h/2; }
-          else { x = cx - w/2; y = cy + h/2 - (pos - (2*w + h)); }
-          x += (Math.random() - 0.5) * 2;
-          y += (Math.random() - 0.5) * 2;
-          col = '#ffdf9e';
-        } else if (i < COUNT * 0.56) {
-          const t = Math.random();
-          const mode = i % 4;
-          if (mode === 0) {
-            x = (cx - w/2) + (w/2) * t;
-            y = (cy - h/2) + (h * 0.55) * t;
-          } else if (mode === 1) {
-            x = (cx + w/2) - (w/2) * t;
-            y = (cy - h/2) + (h * 0.55) * t;
-          } else if (mode === 2) {
-            x = (cx - w/2) + (w * 0.38) * t;
-            y = (cy + h/2) - (h * 0.48) * t;
-          } else {
-            x = (cx + w/2) - (w * 0.38) * t;
-            y = (cy + h/2) - (h * 0.48) * t;
-          }
-          col = '#ffc899';
-        } else if (i < COUNT * 0.72) {
-          const t = Math.random() * Math.PI * 2;
-          const rScale = Math.sqrt(Math.random()) * 1.15;
-          x = cx + 16 * Math.pow(Math.sin(t), 3) * rScale;
-          y = (cy - 2) - (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * rScale;
-          col = '#ff3b8d';
-          sz = Math.random() * 5.5 + 3.5;
-        } else {
-          x = cx + (Math.random() - 0.5) * (w * 1.25);
-          y = cy + (Math.random() - 0.5) * (h * 1.25);
-          col = Math.random() < 0.5 ? '#ff9ebb' : '#ffe5b4';
-          sz = Math.random() * 3.8 + 2;
-        }
-
-        p.tx = x;
-        p.ty = y;
-        p.color = col;
-        p.size = sz;
-      }
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new StarParticle(i));
     }
-
-    function setGalaxyStage() {
-      const maxR = Math.min(width, height) * 0.38;
-      const minR = maxR * 0.24;
-
-      for (let i = 0; i < COUNT; i++) {
-        const p = particles[i];
-        const norm = Math.pow(Math.random(), 1.35);
-        p.radius = minR + norm * (maxR - minR);
-        p.angle = Math.random() * Math.PI * 2;
-        p.orbitSpeed = (0.035 + (1 - norm) * 0.045);
-
-        if (norm < 0.18) p.color = '#ff85b3';
-        else if (Math.random() < 0.65) p.color = '#ff1e75';
-        else p.color = '#d91b5c';
-
-        p.size = Math.random() * 4.8 + 3;
-        p.vx = (Math.random() - 0.5) * 14;
-        p.vy = (Math.random() - 0.5) * 14;
-      }
-    }
-
-    function setNameStage() {
-      const off = document.createElement('canvas');
-      off.width = width;
-      off.height = height;
-      const octx = off.getContext('2d');
-
-      const fontSize = Math.min(width * 0.22, 125);
-      octx.font = `italic 400 ${fontSize}px 'Great Vibes', cursive`;
-      octx.textAlign = 'center';
-      octx.textBaseline = 'middle';
-      octx.fillStyle = '#fff';
-      octx.fillText(GIRL_NAME, width / 2, height / 2);
-
-      const img = octx.getImageData(0, 0, width, height).data;
-      const textPts = [];
-      const step = 2;
-
-      for (let y = 0; y < height; y += step) {
-        for (let x = 0; x < width; x += step) {
-          if (img[(y * width + x) * 4 + 3] > 110) {
-            textPts.push({ x, y });
-          }
-        }
-      }
-
-      for (let i = 0; i < COUNT; i++) {
-        const p = particles[i];
-        if (i < COUNT * 0.85 && textPts.length > 0) {
-          const pt = textPts[(i * 7) % textPts.length];
-          p.tx = pt.x + (Math.random() - 0.5) * 1.2;
-          p.ty = pt.y + (Math.random() - 0.5) * 1.2;
-          p.color = Math.random() < 0.7 ? '#ff5c9e' : '#ffc2db';
-          p.size = Math.random() * 3.8 + 2.6;
-        } else {
-          p.tx = width / 2 + (Math.random() - 0.5) * (width * 0.75);
-          p.ty = height / 2 + (Math.random() - 0.5) * 240;
-          p.color = '#ff85b3';
-          p.size = Math.random() * 3.2 + 2;
-        }
-        p.vx = (Math.random() - 0.5) * 10;
-        p.vy = (Math.random() - 0.5) * 10;
-      }
-    }
-
-    function setFlowerStage() {
-      const cx = width / 2;
-      const cy = height / 2 - 85;
-
-      for (let i = 0; i < COUNT; i++) {
-        const p = particles[i];
-
-        if (i < COUNT * 0.72) {
-          const layer = Math.random();
-          const spreadAngle = (Math.random() - 0.5) * Math.PI * 1.35;
-          const maxRadius = 115;
-          const r = Math.pow(layer, 0.65) * maxRadius;
-          const petalRipple = Math.sin(spreadAngle * 9) * 10 + Math.cos(layer * 18) * 6;
-          const finalR = r + petalRipple;
-
-          const x = cx + Math.sin(spreadAngle) * finalR * 1.08;
-          const y = (cy + 30) - Math.cos(spreadAngle * 0.65) * finalR * 0.85 + (Math.random() - 0.5) * 8;
-
-          if (layer > 0.88 && Math.random() < 0.45) {
-            p.color = '#ffd166';
-          } else if (layer < 0.35) {
-            p.color = '#ff0a54';
-          } else {
-            p.color = Math.random() < 0.6 ? '#ff2a85' : '#ff75a0';
-          }
-          p.tx = x;
-          p.ty = y;
-          p.size = Math.random() * 4.4 + 2.8;
-
-        } else if (i < COUNT * 0.78) {
-          const t = Math.random();
-          const w = (1 - t) * 22 + 4;
-          p.tx = cx + (Math.random() - 0.5) * w;
-          p.ty = (cy + 26) + t * 24;
-          p.color = '#2dd4bf';
-          p.size = Math.random() * 4 + 2.8;
-
-        } else if (i < COUNT * 0.88) {
-          const t = Math.random();
-          const curve = Math.sin(t * Math.PI) * 6;
-          p.tx = cx + curve + (Math.random() - 0.5) * 4.5;
-          p.ty = (cy + 48) + t * 130;
-          p.color = '#10b981';
-          p.size = Math.random() * 4 + 3;
-
-        } else {
-          const isLeft = i % 2 === 0;
-          const t = Math.random();
-          const leafWidth = Math.sin(t * Math.PI) * 10;
-          const fill = (Math.random() - 0.5) * leafWidth;
-
-          if (isLeft) {
-            p.tx = cx - 4 - t * 44 + fill * 0.5;
-            p.ty = (cy + 115) - Math.sin(t * Math.PI * 0.85) * 26 + fill;
-          } else {
-            p.tx = cx + 6 + t * 40 + fill * 0.5;
-            p.ty = (cy + 98) - Math.sin(t * Math.PI * 0.85) * 24 + fill;
-          }
-          p.color = Math.random() < 0.5 ? '#34d399' : '#059669';
-          p.size = Math.random() * 3.8 + 2.6;
-        }
-
-        p.vx = (Math.random() - 0.5) * 9;
-        p.vy = (Math.random() - 0.5) * 9;
-      }
-    }
-
-    function handleMainAction() {
-      if (!sequenceStarted) {
-        sequenceStarted = true;
-        bottomUi.classList.add('hidden');
-        audio.play().catch(() => {});
-
-        setStage(1);
-
-        setTimeout(() => {
-          setStage(2);
-        }, 4500);
-
-        setTimeout(() => {
-          setStage(3);
-          flowerTitles.classList.add('visible');
-        }, 9000);
-
-        setTimeout(() => {
-          readyForPanels = true;
-          actionBtn.innerText = "Davomini ko‘rish ✨";
-          actionBtn.classList.add('pulse-btn');
-          bottomUi.classList.remove('hidden');
-        }, 12200);
-
-      } else if (readyForPanels) {
-        bottomUi.classList.add('hidden');
-        document.getElementById('panelBlock').classList.add('active');
-      }
-    }
-
-    function setStage(s) {
-      stage = s;
-      if (s === 0) setEnvelopeStage();
-      else if (s === 1) setGalaxyStage();
-      else if (s === 2) setNameStage();
-      else if (s === 3) setFlowerStage();
-    }
-
-    // Butun ekran bo'ylab qochib yuruvchi yozuvlar
-    const noTexts1 = [
-      "Blokdan ochishga rozimasman 😏",
-      "Baribir tutolmaysan 😂",
-      "Ekran bo‘ylab qochaman 🏃‍♂️✨",
-      "Rozimasman degani o‘tmaydi 😉",
-      "Ovora bo‘lma, ochasan baribir 🔓"
-    ];
-    const noTexts2 = [
-      "Rozimasman, bormayman 😌",
-      "2-noyabr band qilindi 📌",
-      "Kofe sovib qoladi, bosaqol ☕",
-      "Butun ekranni aylanib chiqaman 😜",
-      "Faqat 'Qabul qildim' ishlaydi ✨"
-    ];
-    let dodgeCount = 0;
-
-    function runAwayFull(btnId, panelNum) {
-      const btn = document.getElementById(btnId);
-
-      // Tugma kartochka ichidan chiqib, butun ekran bo'ylab erkin yurishi uchun body'ga o'tkazamiz
-      if (btn.parentElement !== document.body) {
-        const rect = btn.getBoundingClientRect();
-        btn.style.position = 'fixed';
-        btn.style.left = rect.left + 'px';
-        btn.style.top = rect.top + 'px';
-        document.body.appendChild(btn);
-      }
-
-      dodgeCount++;
-      const list = panelNum === 1 ? noTexts1 : noTexts2;
-      btn.innerText = list[dodgeCount % list.length];
-
-      const pad = 20;
-      const maxX = Math.max(window.innerWidth - btn.offsetWidth - pad, pad);
-      const maxY = Math.max(window.innerHeight - btn.offsetHeight - pad, pad);
-
-      const randomX = Math.floor(Math.random() * (maxX - pad)) + pad;
-      const randomY = Math.floor(Math.random() * (maxY - pad)) + pad;
-      const randomRot = (Math.random() - 0.5) * 14;
-
-      btn.style.left = randomX + 'px';
-      btn.style.top = randomY + 'px';
-      btn.style.transform = `rotate(${randomRot}deg)`;
-    }
-
-    function goToDatePanel() {
-      const btn1 = document.getElementById('noBtn1');
-      if (btn1) btn1.style.display = 'none';
-
-      document.getElementById('panelBlock').classList.remove('active');
-      setTimeout(() => {
-        document.getElementById('panelDate').classList.add('active');
-      }, 300);
-    }
-
-    function finishAll() {
-      const btn2 = document.getElementById('noBtn2');
-      if (btn2) btn2.style.display = 'none';
-
-      document.getElementById('panelDate').classList.remove('active');
-      setTimeout(() => {
-        document.getElementById('panelFinal').classList.add('active');
-      }, 300);
-
-      const cx = width / 2;
-      const cy = height / 2;
-      particles.forEach((p, i) => {
-        const t = (i / COUNT) * Math.PI * 2;
-        const scale = Math.min(width, height) * 0.015 * (0.6 + Math.random() * 0.6);
-        p.tx = cx + 16 * Math.pow(Math.sin(t), 3) * scale;
-        p.ty = cy - (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)) * scale;
-        p.color = i % 2 === 0 ? '#ff2a85' : '#ffd166';
-        p.vx = (Math.random() - 0.5) * 18;
-        p.vy = (Math.random() - 0.5) * 18;
-      });
-    }
-
-    for (let i = 0; i < COUNT; i++) {
-      particles.push(new Particle());
-    }
-    setStage(0);
 
     function animate() {
-      time += 0.015;
-      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(6, 2, 14, 0.25)';
+      ctx.fillRect(0, 0, width, height);
 
-      bgStars.forEach(s => {
-        s.phase += s.speed;
-        const alpha = (Math.sin(s.phase) + 1) * 0.35 + 0.1;
-        ctx.fillStyle = `rgba(255, 230, 245, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
+      // Markazda "Shoxista" yozuvi
+      const fontSize = Math.min(width * 0.2, 110);
+      ctx.save();
+      ctx.font = `italic 400 ${fontSize}px 'Great Vibes', cursive`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = 'rgba(255, 195, 225, 0.22)';
+      ctx.shadowColor = 'rgba(236, 72, 153, 0.5)';
+      ctx.shadowBlur = 20;
+      ctx.fillText("Shoxista", width / 2, height / 2);
+      ctx.restore();
 
-      for (let i = 0; i < COUNT; i++) {
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles[i].update();
         particles[i].draw();
       }
-
-      if (stage === 0) {
-        ctx.save();
-        ctx.font = "700 22px 'Plus Jakarta Sans', sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.letterSpacing = "4px";
-        ctx.fillStyle = "#fff5ea";
-        ctx.shadowColor = "rgba(255, 105, 180, 0.9)";
-        ctx.shadowBlur = 14;
-        ctx.fillText("FOR YOU", width / 2, height / 2 + 34);
-        ctx.restore();
-      }
-
-      if (stage === 2) {
-        const fontSize = Math.min(width * 0.22, 125);
-        ctx.save();
-        ctx.font = `italic 400 ${fontSize}px 'Great Vibes', cursive`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillStyle = 'rgba(255, 225, 240, 0.45)';
-        ctx.shadowColor = 'rgba(255, 45, 130, 0.75)';
-        ctx.shadowBlur = 22;
-        ctx.fillText(GIRL_NAME, width / 2, height / 2);
-        ctx.restore();
-      }
+      ctx.globalCompositeOperation = 'source-over';
 
       requestAnimationFrame(animate);
     }
+    animate();
 
-    document.fonts.ready.then(() => {
-      resize();
-      setStage(0);
-      animate();
-    });
+    // SAVOLLAR VA PANELLAR ALMASHINUVI
+    const answers = {};
+
+    function selectAnswer(step, value) {
+      answers[step] = value;
+
+      // Zarrachalarni har javobda bir marta chaqnatish
+      particles.forEach(p => {
+        p.vx += (Math.random() - 0.5) * 22;
+        p.vy += (Math.random() - 0.5) * 22;
+      });
+
+      document.getElementById('panel' + step).classList.remove('active');
+
+      if (step < 3) {
+        setTimeout(() => {
+          document.getElementById('panel' + (step + 1)).classList.add('active');
+        }, 320);
+      } else {
+        // Yakuniy VIP Taklifnomani to'ldirish va ko'rsatish
+        document.getElementById('res1').innerText = answers[1];
+        document.getElementById('res2').innerText = answers[2];
+        document.getElementById('res3').innerText = answers[3];
+
+        setTimeout(() => {
+          document.getElementById('panel4').classList.add('active');
+        }, 320);
+      }
+    }
+
+    // 2-NOYABRGACHA TAYMER (Soathisoob)
+    function updateCountdown() {
+      const now = new Date();
+      let targetYear = now.getFullYear();
+      // 2-noyabr soat 18:00 ga mo'ljallangan
+      let target = new Date(targetYear, 10, 2, 18, 0, 0);
+      if (now > target) {
+        target = new Date(targetYear + 1, 10, 2, 18, 0, 0);
+      }
+
+      const diff = Math.max(0, target - now);
+      const hrs = Math.floor(diff / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cdHours').innerText = String(hrs).padStart(2, '0');
+      document.getElementById('cdMins').innerText = String(mins).padStart(2, '0');
+      document.getElementById('cdSecs').innerText = String(secs).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
