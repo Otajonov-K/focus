@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Shoxista • 2-Qism ✨</title>
+  <title>Shoxista • Maxsus Sahifa ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -33,11 +33,14 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      cursor: pointer;
+      cursor: grab;
+    }
+    canvas:active {
+      cursor: grabbing;
     }
 
-    /* 1-BOSQICH: INTERAKTIV EKRAN YOZUVLARI */
-    .intro-hud {
+    /* ASOSIY EKRANDAGI BOSHQARUV PANELI */
+    .main-hud {
       position: absolute;
       inset: 0;
       z-index: 10;
@@ -46,84 +49,135 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 45px 22px 50px;
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .intro-hud.hidden {
-      opacity: 0;
-      transform: scale(0.95);
+      padding: 30px 18px 34px;
     }
     .top-box {
       text-align: center;
-      max-width: 420px;
-      background: rgba(20, 8, 36, 0.65);
-      border: 1px solid rgba(255, 140, 195, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 18px 22px;
+      max-width: 440px;
+      background: rgba(20, 8, 36, 0.55);
+      border: 1px solid rgba(255, 140, 195, 0.28);
+      backdrop-filter: blur(8px);
+      padding: 14px 20px;
       border-radius: 22px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
     }
     .top-box .tag {
       display: inline-block;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #ff9ec4;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .top-box h1 {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      line-height: 1.4;
+      line-height: 1.35;
       color: #fff;
     }
-
-    .bottom-meter {
-      width: 100%;
-      max-width: 340px;
-      text-align: center;
-      background: rgba(20, 8, 36, 0.7);
-      border: 1px solid rgba(255, 140, 195, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 16px 20px;
-      border-radius: 20px;
+    .top-box p {
+      font-size: 0.78rem;
+      color: #f9a8d4;
+      margin-top: 5px;
+      opacity: 0.9;
     }
-    .meter-text {
-      font-size: 0.88rem;
-      color: #f5d0fe;
-      margin-bottom: 10px;
+
+    /* PASTKI SAVOLLAR MENYUSI (O'ZI OCHIB YOPADIGAN) */
+    .bottom-dock {
+      pointer-events: auto;
+      width: 100%;
+      max-width: 460px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(18, 7, 32, 0.72);
+      border: 1px solid rgba(255, 140, 195, 0.32);
+      backdrop-filter: blur(12px);
+      padding: 14px;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65);
+    }
+    .dock-title {
+      font-size: 0.78rem;
+      text-align: center;
+      color: #e9d5ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .q-btn {
+      position: relative;
+      padding: 12px 8px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 150, 200, 0.35);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 0.85rem;
       font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.25s ease;
     }
-    .progress-track {
-      width: 100%;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 120, 180, 0.25);
+    .q-btn:hover {
+      background: rgba(236, 72, 153, 0.22);
+      border-color: #ff85b3;
+      transform: translateY(-2px);
     }
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #ec4899, #a855f7, #ff85b3);
-      box-shadow: 0 0 15px #ec4899;
-      transition: width 0.15s ease;
+    .q-btn.answered {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.28), rgba(139, 92, 246, 0.28));
+      border-color: #f472b6;
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
     }
-    .hint-pulse {
-      font-size: 0.8rem;
-      color: #fda4af;
-      margin-top: 8px;
-      animation: fadePulse 1.6s infinite;
+    .q-btn .q-icon {
+      font-size: 1.3rem;
     }
-    @keyframes fadePulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
+    .q-btn .check-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #fff;
+      font-size: 0.68rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .q-btn.answered .check-badge {
+      display: flex;
     }
 
-    /* ALOHIDA PANELLAR (SAVOLLAR VA CHIPTA) */
+    .vip-open-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 180, 210, 0.45);
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.4);
+      transition: all 0.25s ease;
+    }
+    .vip-open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(236, 72, 153, 0.65);
+    }
+
+    /* MODAL PANELLAR (OCHIB-YOPILADIGAN) */
     .panel-wrap {
       position: fixed;
       inset: 0;
@@ -132,27 +186,50 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      background: rgba(5, 1, 12, 0.65);
+      background: rgba(5, 1, 12, 0.68);
       backdrop-filter: blur(8px);
       opacity: 0;
       pointer-events: none;
-      transform: translateY(15px) scale(0.96);
-      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scale(0.95);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .panel-wrap.active {
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0) scale(1);
+      transform: scale(1);
     }
     .card {
+      position: relative;
       width: 100%;
       max-width: 430px;
-      background: linear-gradient(150deg, rgba(38, 15, 58, 0.94), rgba(15, 5, 26, 0.97));
-      border: 1px solid rgba(255, 135, 190, 0.38);
+      background: linear-gradient(150deg, rgba(38, 15, 58, 0.95), rgba(15, 5, 26, 0.98));
+      border: 1px solid rgba(255, 135, 190, 0.4);
       border-radius: 28px;
-      padding: 30px 24px;
+      padding: 32px 24px 26px;
       text-align: center;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(236, 72, 153, 0.2);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(236, 72, 153, 0.22);
+    }
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .close-btn:hover {
+      background: rgba(244, 63, 94, 0.4);
+      border-color: #fb7185;
+      transform: rotate(90deg);
     }
     .step-badge {
       display: inline-block;
@@ -168,11 +245,11 @@
       margin-bottom: 12px;
     }
     .emoji-icon {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 2.4rem;
+      margin-bottom: 8px;
     }
     .card h2 {
-      font-size: 1.3rem;
+      font-size: 1.28rem;
       font-weight: 700;
       margin-bottom: 8px;
       line-height: 1.35;
@@ -186,29 +263,28 @@
     .options-list {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 10px;
     }
     .opt-btn {
       width: 100%;
-      padding: 14px 18px;
+      padding: 14px 16px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 150, 200, 0.3);
+      border: 1px solid rgba(255, 150, 200, 0.28);
       background: rgba(255, 255, 255, 0.06);
       color: #fff;
-      font-size: 0.93rem;
+      font-size: 0.92rem;
       font-weight: 600;
       text-align: left;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all 0.22s ease;
+      transition: all 0.2s ease;
     }
-    .opt-btn:hover, .opt-btn:active {
-      background: linear-gradient(135deg, rgba(236, 72, 153, 0.35), rgba(139, 92, 246, 0.35));
+    .opt-btn:hover, .opt-btn.selected {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.4), rgba(139, 92, 246, 0.4));
       border-color: #ff85b3;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+      box-shadow: 0 6px 18px rgba(236, 72, 153, 0.3);
     }
 
     /* YAKUNIY VIP TAKLIFNOMA DIZAYNI */
@@ -216,16 +292,17 @@
       background: rgba(255, 255, 255, 0.05);
       border: 1px dashed rgba(255, 160, 205, 0.5);
       border-radius: 20px;
-      padding: 18px 16px;
-      margin: 16px 0 20px;
+      padding: 16px;
+      margin: 14px 0 18px;
       text-align: left;
     }
     .ticket-row {
       display: flex;
       justify-content: space-between;
+      gap: 10px;
       padding: 8px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
     .ticket-row:last-child {
       border-bottom: none;
@@ -242,7 +319,7 @@
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .time-unit {
       background: rgba(236, 72, 153, 0.15);
@@ -252,12 +329,12 @@
       min-width: 65px;
     }
     .time-unit .num {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #fff;
     }
     .time-unit .lbl {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: #f9a8d4;
       text-transform: uppercase;
     }
@@ -267,40 +344,56 @@
 
   <canvas id="starCanvas"></canvas>
 
-  <!-- 1-BOSQICH: BARMOQ BILAN BOSHQARILADIGAN YULDUZLAR EKRANI -->
-  <div class="intro-hud" id="introHud">
+  <!-- ASOSIY INTERAKTIV OYNA -->
+  <div class="main-hud">
     <div class="top-box">
       <span class="tag">2-Qism • Maxfiy Sahifa ✨</span>
-      <h1>Shoxista, linkka yana bir marta kirib ko‘rishingni bilgandim 😉</h1>
+      <h1>Shoxista, linkka yana kirib ko‘rishingni bilgandim 😉</h1>
+      <p>👆 Ekranni barmog‘ing bilan silab yulduzlarni xohlagancha o‘ynat</p>
     </div>
 
-    <div class="bottom-meter">
-      <div class="meter-text">
-        <span>Yangi fokus quvvati:</span>
-        <span id="percentTxt">0%</span>
+    <!-- PASTKI SAVOLLAR PANELI (O'ZI TANLAB OCHADI) -->
+    <div class="bottom-dock">
+      <div class="dock-title">2-noyabr uchrashuvi uchun savollarni ochib belgilab chiq:</div>
+      <div class="q-grid">
+        <button class="q-btn" id="qBtn1" onclick="openPanel('panel1')">
+          <span class="check-badge">✓</span>
+          <span class="q-icon">⌚</span>
+          <span>1-Savol</span>
+        </button>
+        <button class="q-btn" id="qBtn2" onclick="openPanel('panel2')">
+          <span class="check-badge">✓</span>
+          <span class="q-icon">☕</span>
+          <span>2-Savol</span>
+        </button>
+        <button class="q-btn" id="qBtn3" onclick="openPanel('panel3')">
+          <span class="check-badge">✓</span>
+          <span class="q-icon">🎩</span>
+          <span>3-Savol</span>
+        </button>
       </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div class="hint-pulse">👆 Ekranni barmog‘ing bilan silab yulduzlarni aylantir</div>
+      <button class="vip-open-btn" onclick="openPanel('panel4')">
+        🎟️ VIP Taklifnomani ko‘rish
+      </button>
     </div>
   </div>
 
   <!-- 1-SAVOL PANELI -->
-  <div class="panel-wrap" id="panel1">
+  <div class="panel-wrap" id="panel1" onclick="backdropClose(event, 'panel1')">
     <div class="card">
-      <span class="step-badge">1-Savol • 1 / 3</span>
+      <button class="close-btn" onclick="closePanel('panel1')">✕</button>
+      <span class="step-badge">1-Savol • Vaqt</span>
       <div class="emoji-icon">⌚😉</div>
-      <h2>2-noyabrga tayyorgarlikni boshlaymiz!</h2>
-      <p class="desc">Birinchi bo‘lib hal qilib olaylik: uchrashuvga kim kechikib keladi?</p>
-      <div class="options-list">
-        <button class="opt-btn" onclick="selectAnswer(1, 'Shoxista (5 daqiqa mumkin) 💁‍♀️')">
+      <h2>Uchrashuvga kim kechikib keladi?</h2>
+      <p class="desc">Birinchi bo‘lib shuni hal qilib olaylik:</p>
+      <div class="options-list" id="opts1">
+        <button class="opt-btn" onclick="chooseOption(1, 'Shoxista (5 daqiqa mumkin) 💁‍♀️', this)">
           <span>Men kechikaman (qizlarga mumkin)</span> <span>💁‍♀️</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(1, 'Hech kim, vaqtida! 🤝')">
+        <button class="opt-btn" onclick="chooseOption(1, 'Hech kim, vaqtida! 🤝', this)">
           <span>Vaqtida boraman, ko‘rasan</span> <span>⏱️</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(1, 'Kechikkan kofe olib beradi ☕')">
+        <button class="opt-btn" onclick="chooseOption(1, 'Kechikkan shirinlik olib beradi 🍰', this)">
           <span>Kim kechiksa — shirinlik undan!</span> <span>🍰</span>
         </button>
       </div>
@@ -308,54 +401,57 @@
   </div>
 
   <!-- 2-SAVOL PANELI -->
-  <div class="panel-wrap" id="panel2">
+  <div class="panel-wrap" id="panel2" onclick="backdropClose(event, 'panel2')">
     <div class="card">
-      <span class="step-badge">2-Savol • 2 / 3</span>
+      <button class="close-btn" onclick="closePanel('panel2')">✕</button>
+      <span class="step-badge">2-Savol • Menyu</span>
       <div class="emoji-icon">☕🍰</div>
       <h2>Qanday kofe buyurtma qilamiz?</h2>
-      <p class="desc">Oldindan bilib qo‘yay, senga ko‘proq qaysi biri yoqadi?</p>
-      <div class="options-list">
-        <button class="opt-btn" onclick="selectAnswer(2, 'Kapuchino va shirinlik ☕🍰')">
+      <p class="desc">Oldindan bilib qo‘yay, qaysi biri ko‘proq yoqadi?</p>
+      <div class="options-list" id="opts2">
+        <button class="opt-btn" onclick="chooseOption(2, 'Kapuchino va chizkeyk ☕🍰', this)">
           <span>Issiq Kapuchino va chizkeyk</span> <span>☕</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(2, 'Latte va shokolad 🥛🍫')">
+        <button class="opt-btn" onclick="chooseOption(2, 'Mayin Latte va shokolad 🍫', this)">
           <span>Mayin Latte bilan shokolad</span> <span>🍫</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(2, 'Joyida birga tanlaymiz ✨')">
-          <span>Ko‘rishganda birga tanlaymiz</span> <span>✨</span>
+        <button class="opt-btn" onclick="chooseOption(2, 'Ko‘rishganda birga tanlaymiz ✨', this)">
+          <span>Joyida birga tanlaymiz</span> <span>✨</span>
         </button>
       </div>
     </div>
   </div>
 
   <!-- 3-SAVOL PANELI -->
-  <div class="panel-wrap" id="panel3">
+  <div class="panel-wrap" id="panel3" onclick="backdropClose(event, 'panel3')">
     <div class="card">
-      <span class="step-badge">3-Savol • 3 / 3</span>
+      <button class="close-btn" onclick="closePanel('panel3')">✕</button>
+      <span class="step-badge">3-Savol • Qoida</span>
       <div class="emoji-icon">🎩✨</div>
       <h2>Uchrashuvning asosiy qoidasi?</h2>
-      <p class="desc">Suhbatimiz chiroyli o‘tishi uchun bitta qoida tanla:</p>
-      <div class="options-list">
-        <button class="opt-btn" onclick="selectAnswer(3, 'Telefonlarsiz jonli suhbat 📵')">
+      <p class="desc">Suhbatimiz zo‘r o‘tishi uchun bitta qoida tanla:</p>
+      <div class="options-list" id="opts3">
+        <button class="opt-btn" onclick="chooseOption(3, 'Telefonlarsiz jonli suhbat 📵', this)">
           <span>Telefonlarni chetga qo‘yib gaplashamiz</span> <span>✨</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(3, 'Fokus ko‘rsatib qochmaslik 😉')">
-          <span>Yana «fokus» ko‘rsatib yo‘q bo‘lib qolmaslik</span> <span>🎩</span>
+        <button class="opt-btn" onclick="chooseOption(3, 'Fokus ko‘rsatib qochmaslik 😉', this)">
+          <span>Yana «fokus» qilib yo‘q bo‘lib qolmaslik</span> <span>🎩</span>
         </button>
-        <button class="opt-btn" onclick="selectAnswer(3, 'Faqat yaxshi kayfiyat 🌟')">
+        <button class="opt-btn" onclick="chooseOption(3, 'A’lo kayfiyat va samimiyat 🌟', this)">
           <span>Ikkalasi ham + a’lo kayfiyat!</span> <span>🤝</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- YAKUNIY PANEL: VIP TAKLIFNOMA -->
-  <div class="panel-wrap" id="panel4">
+  <!-- VIP TAKLIFNOMA PANELI -->
+  <div class="panel-wrap" id="panel4" onclick="backdropClose(event, 'panel4')">
     <div class="card">
+      <button class="close-btn" onclick="closePanel('panel4')">✕</button>
       <span class="step-badge">Rasmiy Tasdiq • VIP 🎟️</span>
       <div class="emoji-icon">🌹☕✨</div>
       <h2>Shoxista uchun Maxsus Taklifnoma</h2>
-      <p class="desc" style="margin-bottom: 12px;">2-noyabr uchrashuvigacha qolgan vaqt:</p>
+      <p class="desc" style="margin-bottom: 10px;">2-noyabr uchrashuvigacha qolgan vaqt:</p>
 
       <div class="countdown-box">
         <div class="time-unit"><div class="num" id="cdHours">00</div><div class="lbl">Soat</div></div>
@@ -373,21 +469,21 @@
           <span class="val">2-Noyabr 📅</span>
         </div>
         <div class="ticket-row">
-          <span class="label">Vaqt masalasi:</span>
-          <span class="val" id="res1">-</span>
+          <span class="label">1. Vaqt:</span>
+          <span class="val" id="res1">Hali tanlanmagan</span>
         </div>
         <div class="ticket-row">
-          <span class="label">Menyu:</span>
-          <span class="val" id="res2">-</span>
+          <span class="label">2. Menyu:</span>
+          <span class="val" id="res2">Hali tanlanmagan</span>
         </div>
         <div class="ticket-row">
-          <span class="label">Asosiy qoida:</span>
-          <span class="val" id="res3">-</span>
+          <span class="label">3. Qoida:</span>
+          <span class="val" id="res3">Hali tanlanmagan</span>
         </div>
       </div>
 
-      <p style="font-size: 0.85rem; color: #fbcfe8; line-height: 1.5;">
-        Taklifnoma tayyor! Endi ushbu ekranni skrinshot qilib, menga Telegramdan yuborib qo‘y 😉👇
+      <p style="font-size: 0.84rem; color: #fbcfe8; line-height: 1.45;">
+        3 ta savolni belgilab bo‘lgach, ushbu taklifnomani skrinshot qilib menga Telegramdan yuborib qo‘y 😉👇
       </p>
     </div>
   </div>
@@ -395,9 +491,6 @@
   <script>
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
-    const introHud = document.getElementById('introHud');
-    const progressFill = document.getElementById('progressFill');
-    const percentTxt = document.getElementById('percentTxt');
 
     let width, height, dpr;
     function resize() {
@@ -411,32 +504,16 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Barmoq / Sichqoncha harakatini kuzatish
+    // CHEKLOVSIZ INTERAKTIV YULDUZLAR O'YINI
     const pointer = { x: width / 2, y: height / 2, active: false };
-    let energy = 0;
-    let gameUnlocked = false;
-
-    function addEnergy(amount) {
-      if (gameUnlocked) return;
-      energy = Math.min(100, energy + amount);
-      const rounded = Math.floor(energy);
-      progressFill.style.width = rounded + '%';
-      percentTxt.innerText = rounded + '%';
-
-      if (energy >= 100 && !gameUnlocked) {
-        gameUnlocked = true;
-        setTimeout(() => {
-          introHud.classList.add('hidden');
-          document.getElementById('panel1').classList.add('active');
-        }, 400);
-      }
-    }
 
     window.addEventListener('mousemove', (e) => {
       pointer.x = e.clientX;
       pointer.y = e.clientY;
       pointer.active = true;
-      addEnergy(0.75);
+    });
+    window.addEventListener('mouseout', () => {
+      pointer.active = false;
     });
 
     window.addEventListener('touchstart', (e) => {
@@ -444,7 +521,6 @@
         pointer.x = e.touches[0].clientX;
         pointer.y = e.touches[0].clientY;
         pointer.active = true;
-        addEnergy(3);
       }
     }, { passive: true });
 
@@ -453,7 +529,6 @@
         pointer.x = e.touches[0].clientX;
         pointer.y = e.touches[0].clientY;
         pointer.active = true;
-        addEnergy(1.3);
       }
     }, { passive: true });
 
@@ -461,50 +536,65 @@
       pointer.active = false;
     });
 
-    // Zarrachalar tizimi (Barmoqqa ergashuvchi galaktika)
-    const PARTICLE_COUNT = 1600;
+    // Ekranga bosganda zarralar to'lqin bo'lib chaqnashi
+    canvas.addEventListener('click', (e) => {
+      burstAt(e.clientX, e.clientY);
+    });
+
+    function burstAt(bx, by) {
+      particles.forEach(p => {
+        const dx = p.x - bx;
+        const dy = p.y - by;
+        const dist = Math.sqrt(dx * dx + dy * dy) + 1;
+        if (dist < 220) {
+          const force = (220 - dist) / 12;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+      });
+    }
+
+    const PARTICLE_COUNT = 1700;
     const particles = [];
     const colors = ['#ff2a85', '#ff85b3', '#c084fc', '#ffd166', '#ffffff'];
 
     class StarParticle {
       constructor(i) {
-        this.angle = (i / PARTICLE_COUNT) * Math.PI * 20;
-        this.baseRadius = Math.pow(Math.random(), 0.8) * Math.min(width, height) * 0.44 + 15;
+        this.angle = (i / PARTICLE_COUNT) * Math.PI * 22;
+        this.baseRadius = Math.pow(Math.random(), 0.8) * Math.min(width, height) * 0.45 + 15;
         this.x = width / 2 + Math.cos(this.angle) * this.baseRadius;
         this.y = height / 2 + Math.sin(this.angle) * this.baseRadius;
         this.vx = 0;
         this.vy = 0;
         this.size = Math.random() * 2.2 + 0.8;
         this.color = colors[i % colors.length];
-        this.speed = (Math.random() * 0.008 + 0.004) * (i % 2 === 0 ? 1 : -1);
+        this.speed = (Math.random() * 0.007 + 0.003) * (i % 2 === 0 ? 1 : -1);
       }
 
       update() {
         this.angle += this.speed;
 
-        // Tinch holatda markaz atrofida suzadi
-        let targetX = width / 2 + Math.cos(this.angle) * this.baseRadius;
-        let targetY = height / 2 + Math.sin(this.angle) * (this.baseRadius * 0.65);
+        const targetX = width / 2 + Math.cos(this.angle) * this.baseRadius;
+        const targetY = height / 2 + Math.sin(this.angle) * (this.baseRadius * 0.68);
 
-        // Barmoq tekkizilganda barmoq atrofida girdob hosil qiladi
-        if (pointer.active && !gameUnlocked) {
+        // Barmoq yoki sichqoncha tekkanda girdob bo'lib aylanadi (doimiy ishlaydi)
+        if (pointer.active) {
           const dx = pointer.x - this.x;
           const dy = pointer.y - this.y;
           const dist = Math.sqrt(dx * dx + dy * dy) + 1;
 
           if (dist < 260) {
             const pull = (260 - dist) / 260;
-            // Spiral girdob kuchi
-            this.vx += (dx / dist) * pull * 1.4 - (dy / dist) * pull * 1.8;
-            this.vy += (dy / dist) * pull * 1.4 + (dx / dist) * pull * 1.8;
+            this.vx += (dx / dist) * pull * 1.5 - (dy / dist) * pull * 2.0;
+            this.vy += (dy / dist) * pull * 1.5 + (dx / dist) * pull * 2.0;
           }
         }
 
-        this.vx += (targetX - this.x) * 0.025;
-        this.vy += (targetY - this.y) * 0.025;
+        this.vx += (targetX - this.x) * 0.022;
+        this.vy += (targetY - this.y) * 0.022;
 
-        this.vx *= 0.88;
-        this.vy *= 0.88;
+        this.vx *= 0.89;
+        this.vy *= 0.89;
 
         this.x += this.vx;
         this.y += this.vy;
@@ -527,15 +617,15 @@
       ctx.fillRect(0, 0, width, height);
 
       // Markazda "Shoxista" yozuvi
-      const fontSize = Math.min(width * 0.2, 110);
+      const fontSize = Math.min(width * 0.21, 115);
       ctx.save();
       ctx.font = `italic 400 ${fontSize}px 'Great Vibes', cursive`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = 'rgba(255, 195, 225, 0.22)';
-      ctx.shadowColor = 'rgba(236, 72, 153, 0.5)';
-      ctx.shadowBlur = 20;
-      ctx.fillText("Shoxista", width / 2, height / 2);
+      ctx.fillStyle = 'rgba(255, 205, 230, 0.28)';
+      ctx.shadowColor = 'rgba(236, 72, 153, 0.6)';
+      ctx.shadowBlur = 22;
+      ctx.fillText("Shoxista", width / 2, height / 2 - 20);
       ctx.restore();
 
       ctx.globalCompositeOperation = 'lighter';
@@ -549,41 +639,43 @@
     }
     animate();
 
-    // SAVOLLAR VA PANELLAR ALMASHINUVI
-    const answers = {};
+    // PANELLARNI OCHISH, YOPISH VA JAVOB TANLASH
+    function openPanel(id) {
+      document.querySelectorAll('.panel-wrap').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
 
-    function selectAnswer(step, value) {
-      answers[step] = value;
+    function closePanel(id) {
+      document.getElementById(id).classList.remove('active');
+    }
 
-      // Zarrachalarni har javobda bir marta chaqnatish
-      particles.forEach(p => {
-        p.vx += (Math.random() - 0.5) * 22;
-        p.vy += (Math.random() - 0.5) * 22;
-      });
-
-      document.getElementById('panel' + step).classList.remove('active');
-
-      if (step < 3) {
-        setTimeout(() => {
-          document.getElementById('panel' + (step + 1)).classList.add('active');
-        }, 320);
-      } else {
-        // Yakuniy VIP Taklifnomani to'ldirish va ko'rsatish
-        document.getElementById('res1').innerText = answers[1];
-        document.getElementById('res2').innerText = answers[2];
-        document.getElementById('res3').innerText = answers[3];
-
-        setTimeout(() => {
-          document.getElementById('panel4').classList.add('active');
-        }, 320);
+    function backdropClose(event, id) {
+      if (event.target.id === id) {
+        closePanel(id);
       }
     }
 
-    // 2-NOYABRGACHA TAYMER (Soathisoob)
+    function chooseOption(qNum, value, btnEl) {
+      // Tanlangan variantni belgilash
+      const container = document.getElementById('opts' + qNum);
+      container.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btnEl.classList.add('selected');
+
+      // VIP Taklifnomaga yozish va pastki tugmaga yashil belgi qo'yish
+      document.getElementById('res' + qNum).innerText = value;
+      document.getElementById('qBtn' + qNum).classList.add('answered');
+
+      // Yulduzlarni chaqnatish va panelni yopish
+      burstAt(width / 2, height / 2);
+      setTimeout(() => {
+        closePanel('panel' + qNum);
+      }, 280);
+    }
+
+    // 2-NOYABRGACHA TAYMER
     function updateCountdown() {
       const now = new Date();
       let targetYear = now.getFullYear();
-      // 2-noyabr soat 18:00 ga mo'ljallangan
       let target = new Date(targetYear, 10, 2, 18, 0, 0);
       if (now > target) {
         target = new Date(targetYear + 1, 10, 2, 18, 0, 0);
