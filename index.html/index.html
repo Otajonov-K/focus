@@ -354,7 +354,7 @@
 
     <!-- PASTKI SAVOLLAR PANELI (O'ZI TANLAB OCHADI) -->
     <div class="bottom-dock">
-      <div class="dock-title">2-noyabr uchrashuvi uchun savollarni ochib belgilab chiq:</div>
+      <div class="dock-title">2-noyabr (11:30) uchrashuvi uchun savollarni belgilab chiq:</div>
       <div class="q-grid">
         <button class="q-btn" id="qBtn1" onclick="openPanel('panel1')">
           <span class="check-badge">✓</span>
@@ -384,14 +384,14 @@
       <button class="close-btn" onclick="closePanel('panel1')">✕</button>
       <span class="step-badge">1-Savol • Vaqt</span>
       <div class="emoji-icon">⌚😉</div>
-      <h2>Uchrashuvga kim kechikib keladi?</h2>
+      <h2>Soat 11:30 dagi uchrashuvga kim kechikadi?</h2>
       <p class="desc">Birinchi bo‘lib shuni hal qilib olaylik:</p>
       <div class="options-list" id="opts1">
         <button class="opt-btn" onclick="chooseOption(1, 'Shoxista (5 daqiqa mumkin) 💁‍♀️', this)">
           <span>Men kechikaman (qizlarga mumkin)</span> <span>💁‍♀️</span>
         </button>
-        <button class="opt-btn" onclick="chooseOption(1, 'Hech kim, vaqtida! 🤝', this)">
-          <span>Vaqtida boraman, ko‘rasan</span> <span>⏱️</span>
+        <button class="opt-btn" onclick="chooseOption(1, 'Hech kim, 11:30 da! 🤝', this)">
+          <span>Aniq 11:30 da boraman, ko‘rasan</span> <span>⏱️</span>
         </button>
         <button class="opt-btn" onclick="chooseOption(1, 'Kechikkan shirinlik olib beradi 🍰', this)">
           <span>Kim kechiksa — shirinlik undan!</span> <span>🍰</span>
@@ -451,7 +451,7 @@
       <span class="step-badge">Rasmiy Tasdiq • VIP 🎟️</span>
       <div class="emoji-icon">🌹☕✨</div>
       <h2>Shoxista uchun Maxsus Taklifnoma</h2>
-      <p class="desc" style="margin-bottom: 10px;">2-noyabr uchrashuvigacha qolgan vaqt:</p>
+      <p class="desc" style="margin-bottom: 10px;">2-noyabr soat 11:30 gacha qolgan vaqt:</p>
 
       <div class="countdown-box">
         <div class="time-unit"><div class="num" id="cdHours">00</div><div class="lbl">Soat</div></div>
@@ -465,11 +465,11 @@
           <span class="val">Shoxista ✨</span>
         </div>
         <div class="ticket-row">
-          <span class="label">Sana:</span>
-          <span class="val">2-Noyabr 📅</span>
+          <span class="label">Sana va vaqt:</span>
+          <span class="val">2-Noyabr, 11:30 📅</span>
         </div>
         <div class="ticket-row">
-          <span class="label">1. Vaqt:</span>
+          <span class="label">1. Kechikish:</span>
           <span class="val" id="res1">Hali tanlanmagan</span>
         </div>
         <div class="ticket-row">
@@ -536,7 +536,6 @@
       pointer.active = false;
     });
 
-    // Ekranga bosganda zarralar to'lqin bo'lib chaqnashi
     canvas.addEventListener('click', (e) => {
       burstAt(e.clientX, e.clientY);
     });
@@ -577,7 +576,6 @@
         const targetX = width / 2 + Math.cos(this.angle) * this.baseRadius;
         const targetY = height / 2 + Math.sin(this.angle) * (this.baseRadius * 0.68);
 
-        // Barmoq yoki sichqoncha tekkanda girdob bo'lib aylanadi (doimiy ishlaydi)
         if (pointer.active) {
           const dx = pointer.x - this.x;
           const dy = pointer.y - this.y;
@@ -616,7 +614,6 @@
       ctx.fillStyle = 'rgba(6, 2, 14, 0.25)';
       ctx.fillRect(0, 0, width, height);
 
-      // Markazda "Shoxista" yozuvi
       const fontSize = Math.min(width * 0.21, 115);
       ctx.save();
       ctx.font = `italic 400 ${fontSize}px 'Great Vibes', cursive`;
@@ -639,7 +636,6 @@
     }
     animate();
 
-    // PANELLARNI OCHISH, YOPISH VA JAVOB TANLASH
     function openPanel(id) {
       document.querySelectorAll('.panel-wrap').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -656,30 +652,23 @@
     }
 
     function chooseOption(qNum, value, btnEl) {
-      // Tanlangan variantni belgilash
       const container = document.getElementById('opts' + qNum);
       container.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
       btnEl.classList.add('selected');
 
-      // VIP Taklifnomaga yozish va pastki tugmaga yashil belgi qo'yish
       document.getElementById('res' + qNum).innerText = value;
       document.getElementById('qBtn' + qNum).classList.add('answered');
 
-      // Yulduzlarni chaqnatish va panelni yopish
       burstAt(width / 2, height / 2);
       setTimeout(() => {
         closePanel('panel' + qNum);
       }, 280);
     }
 
-    // 2-NOYABRGACHA TAYMER
+    // 2-NOYABR SOAT 11:30 GACHA TAYMER (O'zbekiston vaqti +05:00 bilan)
     function updateCountdown() {
       const now = new Date();
-      let targetYear = now.getFullYear();
-      let target = new Date(targetYear, 10, 2, 18, 0, 0);
-      if (now > target) {
-        target = new Date(targetYear + 1, 10, 2, 18, 0, 0);
-      }
+      const target = new Date("2026-11-02T11:30:00+05:00");
 
       const diff = Math.max(0, target - now);
       const hrs = Math.floor(diff / (1000 * 60 * 60));
